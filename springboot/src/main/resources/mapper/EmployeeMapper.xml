@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.proj4.mapper.EmployeeMapper">
+    
+    <select id="selectAll" resultType="com.proj4.entity.Employee">
+        SELECT e.*, d.name AS departmentName FROM EMPLOYEE e
+        LEFT JOIN DEPARTMENT d ON e.department_id = d.id
+        <where><if test="name != null">e.name like concat('%',#{name},'%')</if></where>
+    </select>
+
+    <insert id="insert" parameterType="com.proj4.entity.Employee">
+        INSERT INTO `EMPLOYEE` (account,password,role,name,sex,no,age,description,department_id,avatar)
+        values (#{account}, #{password}, #{role},#{name}, #{sex}, #{no}, #{age}, #{description}, #{departmentId}, #{avatar})
+    </insert>
+
+    <update id="updateById" parameterType="com.proj4.entity.Employee">
+        UPDATE `EMPLOYEE`
+            set account = #{account},
+                password = #{password},
+                role = #{role},
+                name = #{name},
+                sex = #{sex},
+                no = #{no},
+                age = #{age},
+                description = #{description},
+                department_id = #{departmentId},
+                avatar = #{avatar}
+        WHERE id = #{id}
+    </update>
+
+</mapper>

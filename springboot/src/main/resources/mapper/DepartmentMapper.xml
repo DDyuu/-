@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.proj4.mapper.DepartmentMapper">
+
+    <select id="selectAll" resultType="com.proj4.entity.Department">
+        SELECT * FROM DEPARTMENT
+        <where><if test="name != null">name like concat('%',#{name},'%')</if></where>
+    </select>
+
+    <insert id="insert" parameterType="com.proj4.entity.Department">
+        INSERT INTO DEPARTMENT (name) values (#{name})
+    </insert>
+
+    <update id="updateById" parameterType="com.proj4.entity.Department">
+        UPDATE DEPARTMENT SET name = #{name} WHERE id = #{id}
+    </update>
+
+</mapper>
